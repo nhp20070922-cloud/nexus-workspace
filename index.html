@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus | Premium Focus Space</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-dark">
+    <!-- UI Sounds mn l'PC dyalek (Click & Alarme) -->
+    <audio id="uiClick"><source src="sounds/click.mp3" type="audio/mpeg"></audio>
+    <audio id="uiRing"><source src="sounds/alarme.mp3" type="audio/mpeg"></audio>
+
+    <!-- Aswaat dyal Ttrkiz mn PC dyalek -->
+    <audio id="soundAirplane" loop><source src="sounds/airplane.mp3" type="audio/mpeg"></audio>
+    <audio id="soundCafe" loop><source src="sounds/cafe.mp3" type="audio/mpeg"></audio>
+    <audio id="soundRain" loop><source src="sounds/rain.mp3" type="audio/mpeg"></audio>
+    <audio id="soundOcean" loop><source src="sounds/ocean.mp3" type="audio/mpeg"></audio>
+    <audio id="soundForest" loop><source src="sounds/nature.mp3" type="audio/mpeg"></audio>
+    <audio id="soundRiver" loop><source src="sounds/river.mp3" type="audio/mpeg"></audio>
+    <audio id="soundFireplace" loop><source src="sounds/fire.mp3" type="audio/mpeg"></audio>
+    <audio id="soundNight" loop><source src="sounds/night.mp3" type="audio/mpeg"></audio>
+    <audio id="soundSpace" loop><source src="sounds/space.mp3" type="audio/mpeg"></audio>
+    <audio id="soundExam" loop><source src="sounds/writing.mp3" type="audio/mpeg"></audio>
+
+    <div class="container">
+        <!-- Theme Selector -->
+        <div class="settings-bar glass-panel">
+            <i class="fa-solid fa-image"></i>
+            <select id="bgSelector" onchange="changeBackground()">
+                <option value="bg-dark">🌑 Spatial Dark Mode</option>
+                <option value="bg-aurora">🌌 Aurora Vibes</option>
+                <option value="bg-forest">🌲 Misty Forest</option>
+                <option value="bg-cafe">☕ Cozy Cafe</option>
+                <option value="bg-lofi">📻 Lo-Fi Chill</option>
+                <option value="bg-sunset">🌇 Sunset Glow</option>
+                <option value="bg-ocean-depth">🦈 Deep Ocean</option>
+                <option value="bg-cyberpunk">🌃 Cyberpunk City</option>
+                <option value="bg-anime">🌸 Anime Chill</option>
+            </select>
+        </div>
+
+        <header>
+            <h2><i class="fa-solid fa-layer-group"></i> NEXUS WORKSPACE</h2>
+            <p id="date-display"></p>
+        </header>
+
+        <!-- Timer Module -->
+        <div class="glass-panel focus-module">
+            <div class="timer-modes">
+                <button class="mode-btn active" onclick="setMode('countdown', 25, this)">25m</button>
+                <button class="mode-btn" onclick="setMode('countdown', 50, this)">50m</button>
+                <button class="mode-btn" onclick="customTimerMode(this)"><i class="fa-solid fa-sliders"></i> Custom</button>
+                <button class="mode-btn flow-btn" onclick="setMode('countup', 0, this)"><i class="fa-solid fa-infinity"></i> Flow State</button>
+            </div>
+            
+            <p id="timerStatus" class="status-glow">SYSTEM READY</p>
+            <div class="timer-display" id="timerDisplay">25:00</div>
+            
+            <!-- Motivation Quote -->
+            <p id="motivationalQuote" class="motivation-text">"Initialize your focus sequence."</p>
+            
+            <div class="timer-controls">
+                <button id="startBtn" onclick="toggleTimer()"><i class="fa-solid fa-play"></i> INITIATE FOCUS</button>
+                <button id="resetBtn" onclick="resetTimer()"><i class="fa-solid fa-power-off"></i></button>
+            </div>
+
+            <!-- Audio Player -->
+            <div class="audio-engine">
+                <button id="soundToggleBtn" onclick="toggleSound()" title="Play/Pause Sound"><i class="fa-solid fa-play"></i></button>
+                <select id="ambientSound" onchange="changeAmbientSound()">
+                    <option value="none">Silence</option>
+                    <option value="soundAirplane">✈️ Airplane Cabin</option>
+                    <option value="soundCafe">☕ Busy Cafe</option>
+                    <option value="soundRain">🌧️ Heavy Rain</option>
+                    <option value="soundOcean">🌊 Ocean Waves</option>
+                    <option value="soundForest">🌲 Forest Birds</option>
+                    <option value="soundRiver">💧 River Stream</option>
+                    <option value="soundFireplace">🔥 Crackling Fireplace</option>
+                    <option value="soundNight">🌙 Night Crickets</option>
+                    <option value="soundSpace">🌌 Deep Space</option>
+                    <option value="soundExam">✍️ Exam Room (Writing)</option>
+                </select>
+                <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="0.5" onchange="changeVolume()">
+            </div>
+        </div>
+
+        <!-- Pro Analytics Dashboard -->
+        <div class="glass-panel analytics-module">
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <span id="xpCount" class="stat-val">0</span>
+                    <p>TOTAL XP</p>
+                </div>
+                <div class="stat-box">
+                    <span id="tasksDone" class="stat-val">0</span>
+                    <p>TASKS</p>
+                </div>
+                <div class="stat-box">
+                    <span id="focusTime" class="stat-val">0</span>
+                    <p>MINUTES</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Task Module -->
+        <div class="task-module">
+            <div class="input-section task-options">
+                <select id="taskTag">
+                    <option value="tag-study">📚 Study</option>
+                    <option value="tag-work">💻 Work</option>
+                    <option value="tag-personal">🏠 Personal</option>
+                </select>
+                
+                <select id="taskPriority">
+                    <option value="p3">Low</option>
+                    <option value="p2" selected>Med</option>
+                    <option value="p1">High</option>
+                </select>
+            </div>
+            
+            <div class="input-section">
+                <input type="text" id="taskInput" placeholder="What is your main focus today?">
+                <button class="add-btn" onclick="addTask()"><i class="fa-solid fa-arrow-up"></i></button>
+            </div>
+            <ul id="taskList"></ul>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
